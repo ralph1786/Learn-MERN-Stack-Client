@@ -1,26 +1,29 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, { Component } from "react";
+import "bootstrap/dist/css/bootstrap.min.css";
+import "./App.css";
+import AppNavbar from "./components/AppNavbar";
+import ReminderContainer from "./containers/RemindersContainer";
+import ReminderModal from "./components/ReminderModal";
+import { Container } from "reactstrap";
+import { loadUser } from "./store/actions/authActions";
+import store from "./store/storeConfig";
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+class App extends Component {
+  componentDidMount() {
+    store.dispatch(loadUser());
+  }
+
+  render() {
+    return (
+      <div className="App">
+        <AppNavbar />
+        <Container>
+          <ReminderModal />
+          <ReminderContainer />
+        </Container>
+      </div>
+    );
+  }
 }
 
 export default App;
