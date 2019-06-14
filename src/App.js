@@ -3,10 +3,12 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import "./App.css";
 import AppNavbar from "./components/AppNavbar";
 import ReminderContainer from "./containers/RemindersContainer";
-import ReminderModal from "./components/ReminderModal";
 import { Container } from "reactstrap";
 import { loadUser } from "./store/actions/authActions";
 import store from "./store/storeConfig";
+import { Switch, Route, Redirect, withRouter } from "react-router-dom";
+import WelcomePage from "./containers/WelcomePage";
+import { connect } from "react-redux";
 
 class App extends Component {
   componentDidMount() {
@@ -14,16 +16,43 @@ class App extends Component {
   }
 
   render() {
+    const { token } = this.props.auth;
     return (
       <div className="App">
         <AppNavbar />
-        <Container>
-          <ReminderModal />
-          <ReminderContainer />
-        </Container>
+        <Switch>
+          <Route
+            path="/user"
+            render={() =>
+              token ? (
+                <Container>
+                  <ReminderContainer />
+                </Container>
+              ) : (
+                <Redirect to="/" />
+              )
+            }
+          />
+          <Route
+            path="/"
+            render={() =>
+              token ? (
+                <Redirect to="/user" />
+              ) : (
+                <Container>
+                  <WelcomePage />
+                </Container>
+              )
+            }
+          />
+        </Switch>
       </div>
     );
   }
 }
 
-export default App;
+const mapStateToProps = state => ({
+  auth: state.auth
+});
+
+export default withRouter(connect(mapStateToProps)(App));
