@@ -15,16 +15,14 @@ const remindersReducer = (state = initialState, action) => {
         reminders: [action.payload, ...state.reminders]
       };
     case "COMPLETE_REMINDER":
-      return state.reminders.map(reminder => {
-        if (reminder._id === action.payload._id) {
-          return {
-            ...state,
-            ...action.payload
-          };
-        } else {
-          return state;
-        }
-      });
+      return {
+        ...state,
+        reminders: state.reminders.map(reminder =>
+          reminder._id === action.payload._id
+            ? { ...reminder, completed: action.payload.completed }
+            : reminder
+        )
+      };
     case "REMOVE_REMINDER":
       return {
         ...state,

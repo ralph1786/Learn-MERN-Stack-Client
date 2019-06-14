@@ -76,9 +76,6 @@ class RegisterModal extends Component {
       password
     };
     this.props.register(newUser);
-
-    //Closes modal on submission
-    // this.modalToggle()
   };
 
   render() {

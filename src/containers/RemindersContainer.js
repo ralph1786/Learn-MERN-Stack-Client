@@ -4,6 +4,7 @@ import { Container, ListGroup } from "reactstrap";
 import { connect } from "react-redux";
 import { fetchAllReminder } from "../store/actions/actions";
 import PropTypes from "prop-types";
+import ReminderModal from "../components/ReminderModal";
 
 class RemindersContainer extends Component {
   componentDidMount() {
@@ -16,13 +17,15 @@ class RemindersContainer extends Component {
   };
 
   render() {
-    console.log(this.props.reminders);
-    let listOfReminders = this.props.reminders.map(reminder => (
+    // console.log(this.props.reminders);
+    const listOfReminders = this.props.reminders.map(reminder => (
       <ReminderCard key={reminder._id} info={reminder} />
     ));
     return (
       <Fragment>
-        <Container />
+        <Container>
+          <ReminderModal />
+        </Container>
         <Container>
           <ListGroup>{listOfReminders}</ListGroup>
         </Container>
@@ -32,7 +35,8 @@ class RemindersContainer extends Component {
 }
 
 const mapStateToProps = state => ({
-  reminders: state.reminders.reminders
+  reminders: state.reminders.reminders,
+  auth: state.auth
 });
 
 const mapDispatchToProps = dispatch => ({

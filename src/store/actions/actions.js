@@ -52,16 +52,16 @@ export const createReminder = reminder => {
   };
 };
 
-export const updateReminder = (completed, id) => {
+export const updateReminder = (completed, id, author) => {
   return (dispatch, getState) => {
+    console.log(completed, id, author);
     axios
       .put(
         `/api/reminder/${id}`,
-        { completed: completed },
+        { completed: completed, author: author },
         tokenConfig(getState)
       )
       .then(res => {
-        console.log(res.data);
         dispatch(toggleReminderComplete(res.data));
       })
       .catch(err => console.log(err));

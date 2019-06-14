@@ -5,13 +5,12 @@ import { deleteReminder, updateReminder } from "../store/actions/actions";
 import "./ReminderCard.css";
 
 const ReminderCard = props => {
-  console.log(props);
-  const { _id, title, completed } = props.info;
+  console.log(props.info);
+  const { _id, title, completed, author } = props.info;
 
-  function changeComplete(completed, id) {
+  function changeComplete(completed, id, author) {
     let newCompleted = !completed;
-    console.log(newCompleted, id);
-    props.updateReminder(newCompleted, id);
+    props.updateReminder(newCompleted, id, author);
   }
 
   return (
@@ -25,7 +24,9 @@ const ReminderCard = props => {
         >
           X
         </Button>
-        <span onClick={() => changeComplete(completed, _id)}>{title}</span>
+        <span onClick={() => changeComplete(completed, _id, author)}>
+          {title}
+        </span>
       </ListGroupItem>
     </Fragment>
   );
@@ -33,7 +34,8 @@ const ReminderCard = props => {
 
 const mapDispatchToProps = dispatch => ({
   deleteReminder: id => dispatch(deleteReminder(id)),
-  updateReminder: (completed, id) => dispatch(updateReminder(completed, id))
+  updateReminder: (completed, id, author) =>
+    dispatch(updateReminder(completed, id, author))
 });
 
 export default connect(
