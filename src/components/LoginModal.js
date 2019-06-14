@@ -15,6 +15,7 @@ import { connect } from "react-redux";
 import PropTypes from "prop-types";
 import { login } from "../store/actions/authActions";
 import { clearErrors } from "../store/actions/errorActions";
+import { withRouter } from "react-router-dom";
 
 class LoginModal extends Component {
   state = {
@@ -78,6 +79,7 @@ class LoginModal extends Component {
   };
 
   render() {
+    // console.log(this.props);
     return (
       <Fragment>
         <NavLink onClick={this.modalToggle} href="#">
@@ -131,7 +133,9 @@ const mapDispatchToProps = dispatch => ({
   clearErrors: () => dispatch(clearErrors())
 });
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(LoginModal);
+export default withRouter(
+  connect(
+    mapStateToProps,
+    mapDispatchToProps
+  )(LoginModal)
+);

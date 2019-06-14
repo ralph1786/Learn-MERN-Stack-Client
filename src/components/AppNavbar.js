@@ -12,6 +12,7 @@ import RegisterModal from "./RegisterModal";
 import LoginModal from "./LoginModal";
 import Logout from "./Logout";
 import { connect } from "react-redux";
+import { withRouter } from "react-router-dom";
 
 class AppNavbar extends Component {
   state = {
@@ -25,8 +26,8 @@ class AppNavbar extends Component {
   };
 
   render() {
-    const { isAuthenticated, user } = this.props.auth;
-
+    const { user, token } = this.props.auth;
+    console.log(this.props);
     const authLinks = (
       <Fragment>
         <NavItem>
@@ -55,11 +56,12 @@ class AppNavbar extends Component {
       <Fragment>
         <Navbar color="dark" dark expand="sm" className="mb-5">
           <Container>
-            <NavbarBrand href="/">Remind Myself</NavbarBrand>
+            <NavbarBrand href="#">Remind Myself</NavbarBrand>
             <NavbarToggler onClick={this.toggle} />
             <Collapse isOpen={this.state.isOpen} navbar>
               <Nav className="ml-auto" navbar>
-                {isAuthenticated ? authLinks : guestLinks}
+                {token ? authLinks : guestLinks}
+                {/* {this.props.location.pathname === "/" ? guestLinks : authLinks} */}
               </Nav>
             </Collapse>
           </Container>
@@ -73,4 +75,4 @@ const mapStateToProps = state => ({
   auth: state.auth
 });
 
-export default connect(mapStateToProps)(AppNavbar);
+export default withRouter(connect(mapStateToProps)(AppNavbar));
