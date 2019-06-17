@@ -40,7 +40,7 @@ class ReminderModal extends Component {
     return (
       <Fragment>
         <Button
-          color="dark"
+          color="primary"
           style={{ marginBottom: "20px" }}
           onClick={this.modalToggle}
         >
@@ -61,7 +61,7 @@ class ReminderModal extends Component {
                   placeholder="Add Reminder"
                   onChange={this.onChangeHandler}
                 />
-                <Button color="dark" style={{ marginTop: "25px" }} block>
+                <Button color="success" style={{ marginTop: "25px" }} block>
                   Create
                 </Button>
               </FormGroup>

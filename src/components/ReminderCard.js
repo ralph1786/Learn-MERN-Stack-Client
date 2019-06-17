@@ -1,20 +1,19 @@
-import React, { Fragment } from "react";
+import React from "react";
 import { ListGroupItem, Button } from "reactstrap";
 import { connect } from "react-redux";
 import { deleteReminder, updateReminder } from "../store/actions/actions";
 import "./ReminderCard.css";
 
 const ReminderCard = props => {
-  console.log(props.info);
   const { _id, title, completed, author } = props.info;
 
   function changeComplete(completed, id, author) {
     let newCompleted = !completed;
-    props.updateReminder(newCompleted, id, author);
+    this.props.updateReminder(newCompleted, id, author);
   }
 
   return (
-    <Fragment>
+    <div className="animation">
       <ListGroupItem className={completed ? "completed" : null}>
         <Button
           className="mr-2"
@@ -28,7 +27,7 @@ const ReminderCard = props => {
           {title}
         </span>
       </ListGroupItem>
-    </Fragment>
+    </div>
   );
 };
 

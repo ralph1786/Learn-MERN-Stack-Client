@@ -111,7 +111,7 @@ class LoginModal extends Component {
                   onChange={this.onChangeHandler}
                   className="mb-3"
                 />
-                <Button color="dark" style={{ marginTop: "25px" }} block>
+                <Button color="success" style={{ marginTop: "25px" }} block>
                   Login
                 </Button>
               </FormGroup>
